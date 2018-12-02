@@ -34,7 +34,7 @@
       Командной строкой:
       java -jar load-app-0.1.0-SNAPSHOT.jar com.easy.upload.application.Application
 
-
+   После запуска можно открыть страницу по умолчанию http://localhost:8080/
 
 
 
