@@ -91,6 +91,9 @@ public class FileUploadFacadeImpl implements FileUploadFacade {
     // if was error then delete file
     if (isError) {
 
+      for (String fileName : fileNames)
+        storageService.delete(storageService.getThumbnailName(fileName));
+
       fileNames.forEach(storageService::delete);
 
       throw new UploadException("One or more file hasn't uploaded");

@@ -79,12 +79,19 @@ public class FileSystemStorageService implements StorageService {
   public void createThumbnail(String filename) throws IOException {
     BufferedImage img = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
 
-    String name = filename.replaceFirst("[.][^.]+$", "");
     File input = this.rootLocation.resolve(filename).toFile();
     BufferedImage read = ImageIO.read(input);
     img.createGraphics().drawImage(read.getScaledInstance(100, 100, Image.SCALE_SMOOTH), 0, 0, null);
     String extension = filename.substring(filename.lastIndexOf(".") + 1);
-    ImageIO.write(img, extension, this.rootLocation.resolve(name + "_thumbnail." + extension).toFile());
+    String other = getThumbnailName(filename);
+    ImageIO.write(img, extension, this.rootLocation.resolve(other).toFile());
+  }
+
+  @Override
+  public String getThumbnailName(String filename){
+    String name = filename.replaceFirst("[.][^.]+$", "");
+    String extension = filename.substring(filename.lastIndexOf(".") + 1);
+    return name + "_thumbnail." + extension;
   }
 
   @Override

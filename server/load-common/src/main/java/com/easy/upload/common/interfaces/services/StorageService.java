@@ -19,6 +19,8 @@ public interface StorageService {
 
   void createThumbnail(String filename) throws IOException;
 
+  String getThumbnailName(String filename);
+
   Stream<Path> loadAll();
 
   Path load(String filename);
