@@ -27,6 +27,7 @@ public class FileDownloadController {
 
   /**
    * Creates controller FileDownloadController
+   *
    * @param storageService
    */
   @Autowired
@@ -36,6 +37,7 @@ public class FileDownloadController {
 
   /**
    * Returns a list of uploaded files
+   *
    * @param model model
    * @return a list of uploaded files
    * @throws IOException
@@ -60,6 +62,7 @@ public class FileDownloadController {
 
   /**
    * serves file
+   *
    * @param filename
    * @return a file
    */
@@ -74,6 +77,7 @@ public class FileDownloadController {
 
   /**
    * handle exception of StorageFileNotFoundException
+   *
    * @param exc
    * @return error's response
    */

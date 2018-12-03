@@ -1,11 +1,8 @@
 package com.easy.upload.application;
 
-import com.easy.upload.common.dto.FileListDto;
 import com.easy.upload.common.exceptions.StorageFileNotFoundException;
+import com.easy.upload.common.interfaces.services.FileUploadFacade;
 import com.easy.upload.common.interfaces.services.StorageService;
-import com.easy.upload.common.interfaces.services.UploadService;
-import com.easy.upload.common.interfaces.services.UploadServiceByJson;
-import com.easy.upload.common.interfaces.services.UploadServiceByUrl;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +19,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.stream.Stream;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -40,13 +36,7 @@ public class FileUploadTests {
   private StorageService storageService;
 
   @MockBean
-  private UploadService uploadService;
-
-  @MockBean
-  private UploadServiceByJson uploadServiceByJson;
-
-  @MockBean
-  private UploadServiceByUrl uploadServiceByUrl;
+  private FileUploadFacade fileUploadFacade;
 
 
   @Test
@@ -78,9 +68,7 @@ public class FileUploadTests {
         .andExpect(MockMvcResultMatchers.status().isFound())
         .andExpect(MockMvcResultMatchers.header().string("Location", "/"));
 
-    BDDMockito.then(this.uploadService).should().upload(arr);
-    BDDMockito.then(this.uploadServiceByJson).should().upload(any(FileListDto.class));
-    BDDMockito.then(this.uploadServiceByUrl).should().upload(any(String.class));
+    BDDMockito.then(this.fileUploadFacade).should().upload(any(), any(), any());
   }
 
   @Test
@@ -97,7 +85,7 @@ public class FileUploadTests {
         .andExpect(MockMvcResultMatchers.status().isFound())
         .andExpect(MockMvcResultMatchers.header().string("Location", "/"));
 
-    BDDMockito.then(this.uploadService).should().upload(arr);
+    BDDMockito.then(this.fileUploadFacade).should().upload(any(), any(), any());
   }
 
   @Test
@@ -113,7 +101,7 @@ public class FileUploadTests {
         .andExpect(MockMvcResultMatchers.status().isFound())
         .andExpect(MockMvcResultMatchers.header().string("Location", "/"));
 
-    BDDMockito.then(this.uploadServiceByJson).should().upload(any(FileListDto.class));
+    BDDMockito.then(this.fileUploadFacade).should().upload(any(), any(), any());
   }
 
   @Test
@@ -129,7 +117,7 @@ public class FileUploadTests {
         .andExpect(MockMvcResultMatchers.status().isFound())
         .andExpect(MockMvcResultMatchers.header().string("Location", "/"));
 
-    BDDMockito.then(this.uploadServiceByUrl).should().upload(any(String.class));
+    BDDMockito.then(this.fileUploadFacade).should().upload(any(), any(), any());
   }
 
   @SuppressWarnings("unchecked")
